@@ -1,0 +1,14 @@
+| Code Smell                  | Fix                                           | Description                                                                 |
+|-----------------------------|-----------------------------------------------|-----------------------------------------------------------------------------|
+| Ambiguous Names             | Use clear, descriptive names                  | Poorly named variables and functions make code hard to read and maintain. Descriptive names improve clarity. |
+| Untyped Variables           | Add explicit type annotations                 | Without type hints, it can be difficult to understand what type of data is expected. Adding type hints improves readability and debugging. |
+| Overcomplicated Code        | Simplify code, utilize built-in functions     | Complex code can be hard to understand and maintain. Simplifying the code and using built-in functions can make it more readable. |
+| Deep Nesting                | Refactor with guard clauses or early returns  | Deeply nested code is often hard to read. Using guard clauses or early returns can flatten the structure. |
+| Returning `None`            | Return empty objects instead                  | Functions returning `None` can lead to unexpected errors. Returning empty objects can prevent these issues. |
+| Functions Doing Too Much    | Apply the Single Responsibility Principle (SRP) | Functions should have a single responsibility. This makes them easier to test and maintain. |
+| Too Many Arguments          | Group related parameters into data structures | Functions with many arguments are hard to use and understand. Grouping related parameters into data structures can improve readability. |
+| Exposing Internals          | Encapsulate internals, use abstraction methods | Direct access to internal attributes can lead to unstable code. Encapsulating internals and providing controlled access through methods helps maintain stability. |
+| Mutable Return Values       | Return immutable objects or copies            | Returning mutable objects can lead to unintended side effects. Returning immutable objects or copies prevents this. |
+| Mutable Default Arguments   | Use `None` as a default value, initialize inside | Using mutable objects as default arguments can lead to unexpected behavior. Using `None` and initializing inside the function avoids this issue. |
+| Global Variables            | Restrict scope, encapsulate within classes or functions | Global variables can lead to code that is hard to debug and maintain. Encapsulating them within classes or functions restricts their scope and improves modularity. |
+| String Concatenation        | Use f-strings for formatting                  | Inefficient string concatenation can degrade performance. Using f-strings is more efficient and readable. |

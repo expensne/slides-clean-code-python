@@ -184,44 +184,6 @@ def calculate_volume_of_cylinder(radius: float, height: float) -> float:
 <h1 align="center">Code Structure 📐</h1>
 
 ---
-
-# Simplicity & Minimalism
-
-❌ Smell: Overcomplicated code
-<br>
-
-```python
-# Bad (unnecessarily complex)
-def get_unique_elements(lst):
-    unique_elements = []
-    for element in lst:
-        if element not in unique_elements:
-            unique_elements.append(element)
-    return unique_elements
-```
-
----
-
-# Simplicity & Minimalism
-
-❌ Smell: Overcomplicated code
-✅ Fix: Simplify using Python idioms and built-in functions
-
-```python
-# Bad (unnecessarily complex)
-def get_unique_elements(lst):
-    unique_elements = []
-    for element in lst:
-        if element not in unique_elements:
-            unique_elements.append(element)
-    return unique_elements
-
-# Good (using Python idioms and built-in functions)
-def get_unique_elements(lst):
-    return list(set(lst))
-```
-
----
 <style scoped>
 pre {
   font-size: 60%;
@@ -484,7 +446,7 @@ pre {
 
 ```python
 # Bad (too many arguments)
-def create_user(name, age, email, address):
+def save_user(name, age, email, address):
     ...
 
 # Good (use a data structure)
@@ -495,7 +457,7 @@ class User:
         self.email = email
         self.address = address
 
-def create_user(user: User):
+def save_user(user: User):
     ...
 ```
 
@@ -605,11 +567,6 @@ class ShoppingCard:
 
 ---
 
-<br><br><br>
-<h1 align="center">Python Specifics 🐍</h1>
-
----
-
 # Mutable Default Arguments
 
 ❌ Smell: Mutable default arguments
@@ -644,7 +601,6 @@ print(add_item(2))
 
 ---
 
-
 # Mutable Default Arguments
 
 ❌ Smell: Mutable default arguments
@@ -678,56 +634,6 @@ def add_item(item, collection=None):
     collection = collection or []
     collection.append(item)
     return collection
-```
-
----
-<style scoped>
-pre {
-  font-size: 80%;
-}
-</style>
-
-# Global Variables
-
-❌ Smell: `global` keyword
-<br>
-
-```python
-# Bad
-counter = 0
-
-def increment_counter():
-    global counter
-    counter += 1
-```
-
----
-<style scoped>
-pre {
-  font-size: 80%;
-}
-</style>
-
-# Global Variables
-
-❌ Smell: `global` keyword
-✅ Restrict the scope of variables to the smallest possible
-
-```python
-# Bad
-counter = 0
-
-def increment_counter():
-    global counter
-    counter += 1
-
-# Good (encapsulate variable in a class)
-class Counter:
-    def __init__(self):
-        self.counter = 0
-
-    def increment(self):
-        self.counter += 1
 ```
 
 ---

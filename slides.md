@@ -103,7 +103,7 @@ Let's look at some practical examples in Python :snake:
 
 ---
 
-# Naming and Comments
+# Naming 
 
 ❌ Smell: Lots of comments
 <br>
@@ -118,7 +118,7 @@ def calc(x, y):
 
 ---
 
-# Naming and Comments
+# Naming 
 
 ❌ Smell: Lots of comments
 ✅ Fix: Use meaningful names
@@ -176,11 +176,96 @@ def calculate_volume_of_cylinder(radius: float, height: float) -> float:
 ---
 <style scoped>
 pre {
+  font-size: 65%;
+}
+</style>
+
+# Imprecise Types
+
+❌ Smell: Exesive use of string
+<br>
+
+```python
+# Bad (str for types)
+class User:
+    def __init__(self, user_id: str, name: str, role: str):
+        self.user_id = user_id
+        self.name = name
+        self.role = role
+
+manager = User("1", "Max", "manager")
+employee = User("2", "Moritz", "employee")
+```
+
+---
+<style scoped>
+pre {
+  font-size: 65%;
+}
+</style>
+
+# Imprecise Types
+
+❌ Smell: Exesive use of string
+✅ Fix: Use Enum
+
+```python
+from enum import Enum
+
+class Role(Enum):
+    MANAGER  = "manager"
+    EMPLOYEE = "employee"
+
+class User:
+    def __init__(self, user_id: str, name: str, role: Role):
+        self.user_id = user_id
+        self.name = name
+        self.role = role
+
+manager = User("1", "Max", Role.MANAGER)
+employee = User("2", "Moritz", Role.EMPLOYEE)
+```
+
+---
+<style scoped>
+pre {
+  font-size: 65%;
+}
+</style>
+
+# Imprecise Types
+
+❌ Smell: Exesive use of string
+✅ Fix: Use Enum and Custom Types
+
+```python
+from enum import Enum
+from typing import NewType
+
+class Role(Enum):
+    MANAGER  = "manager"
+    EMPLOYEE = "employee"
+
+UserId = NewType("UserId", str)
+
+class User:
+    def __init__(self, user_id: UserId, name: str, role: Role):
+        self.user_id = user_id
+        self.name = name
+        self.role = role
+
+manager = User(UserId("1"), "Max", Role.MANAGER)
+employee = User(UserId("2"), "Moritz", Role.EMPLOYEE)
+```
+
+---
+<style scoped>
+pre {
   font-size: 48%;
 }
 </style>
 
-# Return early 
+# Early Return
 
 ❌ Smell: Deep nesting
 <br>
@@ -208,7 +293,7 @@ pre {
 }
 </style>
 
-# Return early 
+# Early Return
 
 ❌ Smell: Deep nesting
 ✅ Fix: Use guard clauses
@@ -372,7 +457,7 @@ pre {
 }
 </style>
 
-# Functions Should Do One Thing 
+# Single Responsiblity
 
 ❌ Smell: *and*-functions
 <br>
@@ -393,7 +478,7 @@ pre {
 }
 </style>
 
-# Functions Should Do One Thing 
+# Single Responsiblity
 
 ❌ Smell: *and*-functions
 ✅ Fix: Separate concerns
@@ -854,6 +939,50 @@ Such as `flake8`, `black`, `isort`, ...
 Advantages:
 - **Speed**: Ruff is optimized for performance, making it very fast
 - **Ease of Use**: Simple to set up and use: `ruff check` and `ruff format`
+
+---
+
+# Ruff
+
+```python
+import os   # Unused import
+import sys  # Unused import
+
+def example_function():
+  unused_variable = 42   # Unused variable
+  print("Hello World!")  # Bad formatting (missing space)
+
+def another_function( ):
+    print( "This is a test" )  # Bad formatting (unnecessary spaces)
+example_function()
+```
+
+```
+I001: Import block is un-sorted or un-formatted
+F401: os imported but unused
+F401: sys imported but unused
+F841: Local variable unused_variable is assigned to but never used
+W292: No newline at end of file
+```
+
+---
+
+# Ruff
+
+`> ruff check --fix`
+`> ruff format`
+
+<br>
+
+```python
+def example_function():
+    print("Hello World!")  # Bad formatting (missing space)
+
+def another_function():
+    print("This is a test")  # Bad formatting (unnecessary spaces)
+
+example_function()
+```
 
 ---
 

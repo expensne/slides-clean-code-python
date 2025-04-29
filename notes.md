@@ -1,19 +1,19 @@
 # What is Clean Code?
 
 Readability:
-Clear Naming Conventions: Use descriptive and meaningful names for variables, functions, and classes.
-Consistent Formatting: Adhere to a consistent style guide for indentation, spacing, and line breaks.
-Logical Structure: Organize code logically with a clear beginning, middle, and end.
+Conventions
+Consistent Formatting
+Logical Structure
 
 Understandability:
-Self-Documenting Code: Write code that explains itself through clear and concise logic.
-Simplicity and Clarity: Avoid complex and convoluted logic.
-Consistent Patterns: Use consistent design patterns and practices throughout the codebase.
+Self-Documenting Code
+Simplicity and Clarity
+Consistent Patterns
 
 Modifiability:
-Modular Design: Structure code into small, independent modules or components.
-Loose Coupling: Minimize dependencies between modules to reduce the impact of changes.
-Refactoring: Regularly refactor code to improve its structure without changing its functionality.
+Modular Design
+Loose Coupling
+Refactoring
 
 # Why does Clean Code Matter?
 
@@ -33,9 +33,7 @@ GASP: General Responsibility Assignment Software Patterns
 
 # Readability First
 
-Comments should explain why, not what. If you need to explain what a function does, it's not named well.
-
-PEP8: many more rules but most of them can easily be automated with tools like Black, Flake8, etc.
+PEP8: tool support: Black, Flake8 
 
 Never use dunder (__) for your own variables. They are reserved for Python's internal use. They involve name mangling.
 

@@ -33,7 +33,7 @@ in Python :snake:
 
 # What is Clean Code?
 
-Code that is easy to **read**, **understand**, and **modify**.
+Code that is easy to read, understand, and modify.
 
 ---
 
@@ -75,21 +75,6 @@ Code that is easy to **read**, **understand**, and **modify**.
 
 ---
 
-# How to Write Clean Code? :pencil2:
-
-Let's look at some practical examples in Python :snake:
-
-<p align="center">
-  <img src="assets/dont-write-bad-code.webp" width="500">
-</p>
-
----
-
-<br><br><br>
-<h1 align="center">Conventions and Naming 🌐</h1>
-
----
-
 # Readability First
 
 - Use **consistent** naming **conventions**
@@ -105,6 +90,16 @@ Some key points:
 - Indentation: 4 spaces
 - Naming conventions: `snake_case` for variables and functions, `CamelCase` for classes, `UPPERCASE` for constants
 - Underscores: Prefix private variables with an underscore `_` <br>(never use `__` because it invokes name mangling)
+
+---
+
+# How to Write Clean Code? :pencil2:
+
+Let's look at some practical examples in Python :snake:
+
+<p align="center">
+  <img src="assets/dont-write-bad-code.webp" width="500">
+</p>
 
 ---
 
@@ -172,21 +167,16 @@ def calculate_volume_of_cylinder(radius, height):
     return PI * radius * radius * height
 
 # Even better (with type hints)
-PI = 3.14159
+PI: float = 3.14159
 
 def calculate_volume_of_cylinder(radius: float, height: float) -> float:
     return PI * radius * radius * height
 ```
 
 ---
-
-<br><br><br>
-<h1 align="center">Code Structure 📐</h1>
-
----
 <style scoped>
 pre {
-  font-size: 60%;
+  font-size: 48%;
 }
 </style>
 
@@ -203,12 +193,18 @@ def process_order(order):
             if order.payment_successful():
                 order.complete()
                 return "Success"
+            else:
+                return "Payment Failed"
+        else:
+            return "Out of Stock"
+    else:
+        return "Invalid Order"
 ```
 
 ---
 <style scoped>
 pre {
-  font-size: 60%;
+  font-size: 48%;
 }
 </style>
 
@@ -225,6 +221,12 @@ def process_order(order):
             if order.payment_successful():
                 order.complete()
                 return "Success"
+            else:
+                return "Payment Failed"
+        else:
+            return "Out of Stock"
+    else:
+        return "Invalid Order"
 
 # Good (early return)
 def process_order(order):
@@ -282,7 +284,7 @@ def get_user_data(user_id) -> dict | None:
 
 user_data = get_user_data(123)
 if user_data:
-    age = user_data['age']
+    age = user_data.get('age')
 else:
     age = 0
 ```
@@ -307,7 +309,7 @@ def get_user_data(user_id) -> dict | None:
         return None
     return user.get_data_dict()
 
-age = get_user_data(123).get('age', 0)
+age = get_user_data(123).get('age', default=0)
 ```
 
 ---
@@ -330,7 +332,7 @@ def get_user_data(user_id) -> dict | None:
         return None
     return user.get_data_dict()
 
-age = get_user_data(123).get('age', 0)  # Error: 'NoneType' object has no attribute 'get'
+age = get_user_data(123).get('age', default=0)  # Error: 'NoneType' object has no attribute 'get'
 ```
 
 ---
@@ -360,7 +362,7 @@ def get_user_data(user_id) -> dict:
         return {}
     return user.get_data_dict()
 
-age = get_user_data(123).get('age', 0)
+age = get_user_data(123).get('age', default=0)
 ```
 
 ---
@@ -370,7 +372,7 @@ pre {
 }
 </style>
 
-# Functions Should Do One Thing Well
+# Functions Should Do One Thing 
 
 ❌ Smell: *and*-functions
 <br>
@@ -391,7 +393,7 @@ pre {
 }
 </style>
 
-# Functions Should Do One Thing Well
+# Functions Should Do One Thing 
 
 ❌ Smell: *and*-functions
 ✅ Fix: Separate concerns
@@ -421,14 +423,14 @@ pre {
 }
 </style>
 
-# Function Arguments: Less is More
+# Function Arguments
 
 ❌ Smell: Too many arguments (> 3)
 <br>
 
 ```python
 # Bad (too many arguments)
-def create_user(name, age, email, address):
+def save_user(name, age, email, address):
     ...
 ```
 
@@ -439,7 +441,7 @@ pre {
 }
 </style>
 
-# Function Arguments: Less is More
+# Function Arguments
 
 ❌ Smell: Too many arguments (> 3)
 ✅ Fix: Use a data structure
@@ -576,10 +578,10 @@ class ShoppingCard:
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
-print(add_item(1))
-print(add_item(2))
+add_item(1)
+add_item(2)
 ```
 
 ---
@@ -593,10 +595,10 @@ print(add_item(2))
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
-print(add_item(1))  # [1]
-print(add_item(2))
+add_item(1)  # [1]
+add_item(2)
 ```
 
 ---
@@ -610,10 +612,10 @@ print(add_item(2))
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
-print(add_item(1))  # [1]
-print(add_item(2))  # [1, 2] - Unexpected!
+add_item(1)  # [1]
+add_item(2)  # [1, 2] - Unexpected!
 ```
 
 ---
@@ -627,13 +629,13 @@ print(add_item(2))  # [1, 2] - Unexpected!
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
 # Good
 def add_item(item, collection=None):
     collection = collection or []
     collection.append(item)
-    return collection
+    print(collection)
 ```
 
 ---
@@ -827,17 +829,6 @@ Examples:
 - `flake8`
 - `pylint`
 - `mypy`
-
----
-
-# Linter: flake8
-
-`flake8` checks code against PEP 8 style guide and other coding standards.
-
-- Syntax errors
-- Style guide violatoion
-- Logical erros (e.g. unused variables)
-- Code complexity
 
 ---
 

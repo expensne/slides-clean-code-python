@@ -77,14 +77,14 @@ Code that is easy to **read**, **understand**, and **modify**.
 
 # Readability First
 
-- Use **consistent** naming **conventions**
+- Use consistent naming conventions
 
 ---
 
 # Readability First
 
 - Use consistent naming conventions
-- Follow **PEP 8** (Python Enhancement Proposal 8)
+- Follow PEP 8 (Python Enhancement Proposal 8)
 
 Some key points:
 - Indentation: 4 spaces
@@ -549,6 +549,40 @@ def save_user(user: User):
 ```
 
 ---
+
+# Methods
+
+❌ Smell: Unnecessary self
+<br>
+
+```python
+# Bad (self is not needed)
+class Calculator:
+    def add(self, a, b):
+        return a + b
+```
+
+---
+
+# Methods
+
+❌ Smell: Unnecessary self
+✅ Fix: Use static methods
+
+```python
+# Bad (self is not needed)
+class Calculator:
+    def add(self, a, b):
+        return a + b
+
+# Good (use static methods)
+class Calculator:
+    @staticmethod
+    def add(a, b):
+        return a + b
+```
+
+---
 <style scoped>
 pre {
   font-size: 75%;
@@ -906,7 +940,6 @@ class Rectangle:
 
 # Linter
 
-Linters
 - Identify potential issues and code smells
 - Enforce coding standards and best practices
 
@@ -919,20 +952,19 @@ Examples:
 
 # Formatter
 
-Formatters
 - Automatically format code according to a predefined style guide
 - Improve readability and maintainability
 
 Examples:
+- `autopep8`
 - `black`
 - `isort` (import sorting)
-- `autopep8`
 
 ---
 
 # Ruff
 
-**Ruff** combines linters, formatters, and other code quality checks.
+Ruff combines linters, formatters, and other code quality checks.
 
 Such as `flake8`, `black`, `isort`, ...
 
@@ -945,8 +977,25 @@ Advantages:
 # Ruff
 
 ```python
-import os   # Unused import
 import sys  # Unused import
+import os   # Unused import
+
+def example_function():
+  unused_variable = 42   # Unused variable
+  print("Hello World!")  # Bad formatting (missing space)
+
+def another_function( ):
+    print( "This is a test" )  # Bad formatting (unnecessary spaces)
+example_function()
+```
+
+---
+
+# Ruff
+
+```python
+import sys  # Unused import
+import os   # Unused import
 
 def example_function():
   unused_variable = 42   # Unused variable
@@ -976,10 +1025,10 @@ W292: No newline at end of file
 
 ```python
 def example_function():
-    print("Hello World!")  # Bad formatting (missing space)
+    print("Hello World!") 
 
 def another_function():
-    print("This is a test")  # Bad formatting (unnecessary spaces)
+    print("This is a test")
 
 example_function()
 ```
@@ -988,7 +1037,6 @@ example_function()
 
 <br><br><br>
 <h1 align="center">Appendix 📚</h1>
-
 
 ---
 

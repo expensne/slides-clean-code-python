@@ -25,8 +25,10 @@ in Python :snake:
 # Agenda
 
 - **Definition of Clean Code**
-- **Key Principles**
-- **Practical Examples in Python**
+- **Why does Clean Code Matter?**
+- **How to Write Clean Code?**
+    - **Key Principles**
+    - **Code Smells**
 - **Tooling**
 
 ---
@@ -67,14 +69,6 @@ Code that is easy to **read**, **understand**, and **modify**.
 
 ---
 
-# Key Principles
-
-- **KISS** - Keep It Simple, Stupid :brain: 
-- **DRY** - Don't Repeat Yourself :recycle: 
-- **YAGNI** - You Aren't Gonna Need It :no_entry_sign:
-
----
-
 # Readability First
 
 - Use consistent naming conventions
@@ -100,6 +94,153 @@ Let's look at some practical examples in Python :snake:
 <p align="center">
   <img src="assets/dont-write-bad-code.webp" width="500">
 </p>
+
+---
+
+<br><br><br>
+<h1 align="center">Key Principles 🔑</h1>
+
+---
+
+# Key Principles
+
+**KISS** - *Keep It Simple, Stupid* :brain:  
+
+Avoid overcomplicating solutions. Write code that is straightforward and easy to understand.  
+
+---
+
+# Key Principles
+
+**KISS** - *Keep It Simple, Stupid* :brain:
+
+```python
+# Bad (overcomplicated)
+def greet_user(name, title="Mr.", middle_name="", suffix=""):
+    print(f"Hello, {title} {middle_name} {name} {suffix}!")
+
+greet_user("Doe", title="Dr.", middle_name="John", suffix="PhD")
+```
+
+---
+
+# Key Principles
+
+**KISS** - *Keep It Simple, Stupid* :brain:
+
+```python
+# Bad (overcomplicated)
+def greet_user(name, title="Mr.", middle_name="", suffix=""):
+    print(f"Hello, {title} {middle_name} {name} {suffix}!")
+
+greet_user("Doe", title="Dr.", middle_name="John", suffix="PhD")
+
+# Good (simple)
+def greet_user(name):
+    print(f"Hello, {name}!")
+
+greet_user("Dr. John Doe PhD")
+```
+
+---
+# Key Principles
+
+**DRY** - *Don't Repeat Yourself* :repeat:
+
+Avoid duplicating code. Instead, create reusable functions or classes to encapsulate common logic.
+
+---
+
+# Key Principles
+
+**DRY** - *Don't Repeat Yourself* :repeat:
+
+```python
+# Bad (repeated logic)
+numbers1 = [1, 2, 3, 4, 5]
+average1 = sum(numbers1) / len(numbers1)
+
+numbers2 = [6, 7, 8, 9, 10]
+average2 = sum(numbers2) / len(numbers2)
+```
+
+---
+# Key Principles
+
+**DRY** - *Don't Repeat Yourself* :repeat:
+
+```python
+# Bad (repeated logic)
+numbers1 = [1, 2, 3, 4, 5]
+average1 = sum(numbers1) / len(numbers1)
+
+numbers2 = [6, 7, 8, 9, 10]
+average2 = sum(numbers2) / len(numbers2)
+
+# Good (reusable function)
+def calculate_average(numbers):
+    return sum(numbers) / len(numbers)
+
+average1 = calculate_average([1, 2, 3, 4, 5])
+average2 = calculate_average([6, 7, 8, 9, 10])
+```
+
+---
+
+# Key Principles
+
+**YAGNI** - *You Aren't Gonna Need It* :no_entry:
+
+Only implement features that are necessary for the current requirements.
+
+---
+
+# Key Principles
+
+**YAGNI** - *You Aren't Gonna Need It* :no_entry:
+
+```python
+# Bad (adding unnecessary functionality)
+def search_item(items, query, case_sensitive=False, exact_match=False):
+    if case_sensitive:
+        result = [item for item in items if query in item]
+    else:
+        result = [item for item in items if query.lower() in item.lower()]
+    if exact_match:
+        result = [item for item in result if item == query]
+    return result
+
+search_item(["apple", "banana", "cherry"], "apple")
+```
+
+---
+
+# Key Principles
+
+**YAGNI** - *You Aren't Gonna Need It* :no_entry:
+
+```python
+# Bad (adding unnecessary functionality)
+def search_item(items, query, case_sensitive=False, exact_match=False):
+    if case_sensitive:
+        result = [item for item in items if query in item]
+    else:
+        result = [item for item in items if query.lower() in item.lower()]
+    if exact_match:
+        result = [item for item in result if item == query]
+    return result
+
+# Good (simpler function)
+def search_item(items, query):
+    return [item for item in items if query.lower() in item.lower()]
+
+search_item(["apple", "banana", "cherry"], "apple")
+```
+
+---
+
+<br><br><br>
+<h1 align="center">Code Smells 👃</h1>
 
 ---
 
@@ -134,7 +275,7 @@ def calc(x, y):
 PI = 3.14159
 
 def calculate_volume_of_cylinder(radius, height):
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 ```
 
 ---
@@ -149,7 +290,7 @@ def calculate_volume_of_cylinder(radius, height):
 PI = 3.14159
 
 def calculate_volume_of_cylinder(radius, height):
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 ```
 
 ---
@@ -164,13 +305,13 @@ def calculate_volume_of_cylinder(radius, height):
 PI = 3.14159
 
 def calculate_volume_of_cylinder(radius, height):
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 
 # Even better (with type hints)
 PI: float = 3.14159
 
 def calculate_volume_of_cylinder(radius: float, height: float) -> float:
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 ```
 
 ---

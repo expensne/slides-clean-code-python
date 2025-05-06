@@ -43,9 +43,9 @@ Code that is easy to **read**, **understand**, and **modify**.
 
 <br>
 
-- Readability: **Naming**, **Formatting**, **Structure**
-- Understandability: **Self-Doc**, **Simplicity**, **Patterns**
-- Modifiability: **Modular**, **Loose**, **Refactor**
+- Readability: naming, formatting, structure
+- Understandability: self-doc, simplicity, patterns
+- Modifiability: modular, loose, reusable 
 
 ---
 
@@ -186,15 +186,14 @@ pre {
 <br>
 
 ```python
-# Bad (str for types)
-class User:
-    def __init__(self, user_id: str, name: str, role: str):
+# Bad (using strings for IDs and status)
+class Order:
+    def __init__(self, user_id: str, order_id: str, status: str):
         self.user_id = user_id
-        self.name = name
-        self.role = role
+        self.order_id = order_id
+        self.status = status
 
-manager = User("1", "Max", "manager")
-employee = User("2", "Moritz", "employee")
+order = Order("user123", "order456", "pending")
 ```
 
 ---
@@ -212,18 +211,21 @@ pre {
 ```python
 from enum import Enum
 
-class Role(Enum):
-    MANAGER  = "manager"
-    EMPLOYEE = "employee"
+UserId = NewType("UserId", str)
+OrderId = NewType("OrderId", str)
 
-class User:
-    def __init__(self, user_id: str, name: str, role: Role):
+class OrderStatus(Enum):
+    PENDING = "pending"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered
+
+class Order:
+    def __init__(self, user_id: UserId, order_id: OrderId, status: OrderStatus):
         self.user_id = user_id
-        self.name = name
-        self.role = role
+        self.order_id = order_id
+        self.status = status
 
-manager = User("1", "Max", Role.MANAGER)
-employee = User("2", "Moritz", Role.EMPLOYEE)
+order = Order(UserId("user123"), OrderId("order456"), OrderStatus.PENDING)
 ```
 
 ---
@@ -453,51 +455,55 @@ age = get_user_data(123).get('age', default=0)
 ---
 <style scoped>
 pre {
-  font-size: 75%;
+  font-size: 65%;
 }
 </style>
 
 # Single Responsiblity
 
-❌ Smell: *and*-functions
+❌ Smell: *or*-functions
 <br>
 
 ```python
 # Bad (does too much)
-def fetch_and_parse_data(url):
-    # Fetch logic
-    ...
-    # Parse logic
-    ...
+def encode_or_decode(message, key, do_encode):
+    if do_encode:
+        # Encoding logic
+        ...
+    else:
+        # Decoding logic
+        ...
 ```
 
 ---
 <style scoped>
 pre {
-  font-size: 75%;
+  font-size: 65%;
 }
 </style>
 
 # Single Responsiblity
 
-❌ Smell: *and*-functions
+❌ Smell: *or*-functions
 ✅ Fix: Separate concerns
 
 ```python
 # Bad (does too much)
-def fetch_and_parse_data(url):
-    # Fetch logic
-    ...
-    # Parse logic
-    ...
+def encode_or_decode(message, key, do_encode):
+    if do_encode:
+        # Encoding logic
+        ...
+    else:
+        # Decoding logic
+        ...
 
 # Good (separate concerns)
-def fetch_data(url):
-    # Fetch logic
+def encode(message, key):
+    # Encoding logic
     ...
 
-def parse_data(data):
-    # Parse logic
+def decode(message, key):
+    # Decoding logic
     ...
 ```
 
@@ -982,7 +988,7 @@ import os   # Unused import
 
 def example_function():
   unused_variable = 42   # Unused variable
-  print("Hello World!")  # Bad formatting (missing space)
+  print("Hello World!") 
 
 def another_function( ):
     print( "This is a test" )  # Bad formatting (unnecessary spaces)
@@ -999,7 +1005,7 @@ import os   # Unused import
 
 def example_function():
   unused_variable = 42   # Unused variable
-  print("Hello World!")  # Bad formatting (missing space)
+  print("Hello World!") 
 
 def another_function( ):
     print( "This is a test" )  # Bad formatting (unnecessary spaces)

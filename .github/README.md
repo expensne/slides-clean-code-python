@@ -8,12 +8,11 @@ lang: en
 ---
 <style>
 pre {
-  font-size: 85%;
+  font-size: 65%;
 }
 </style>
 
-# **Clean Code and Best Practices**
-in Python :snake:
+# **Clean Code in Python** :snake:
 
 <br>
 <p align="center">
@@ -25,15 +24,17 @@ in Python :snake:
 # Agenda
 
 - **Definition of Clean Code**
-- **Key Principles**
-- **Practical Examples in Python**
+- **Why does Clean Code Matter?**
+- **How to Write Clean Code?**
+    - **Key Principles**
+    - **Code Smells**
 - **Tooling**
 
 ---
 
 # What is Clean Code?
 
-Code that is easy to **read**, **understand**, and **modify**.
+Code that is easy to read, understand, and modify.
 
 ---
 
@@ -43,9 +44,9 @@ Code that is easy to **read**, **understand**, and **modify**.
 
 <br>
 
-- Readability: **Naming**, **Formatting**, **Structure**
-- Understandability: **Self-Doc**, **Simplicity**, **Patterns**
-- Modifiability: **Modular**, **Loose**, **Refactor**
+- Readability: naming, formatting, structure
+- Understandability: self-doc, simplicity, patterns
+- Modifiability: modular, loose, reusable 
 
 ---
 
@@ -67,11 +68,21 @@ Code that is easy to **read**, **understand**, and **modify**.
 
 ---
 
-# Key Principles
+# Readability First
 
-- **KISS** - Keep It Simple, Stupid :brain: 
-- **DRY** - Don't Repeat Yourself :recycle: 
-- **YAGNI** - You Aren't Gonna Need It :no_entry_sign:
+- Use consistent naming conventions
+
+---
+
+# Readability First
+
+- Use consistent naming conventions
+- Follow PEP 8 (Python Enhancement Proposal 8)
+
+Some key points:
+- Indentation: 4 spaces
+- Naming conventions: `snake_case` for variables and functions, `CamelCase` for classes, `UPPERCASE` for constants
+- Underscores: Prefix private variables with an underscore `_` <br>(never use `__` because it invokes name mangling)
 
 ---
 
@@ -86,29 +97,157 @@ Let's look at some practical examples in Python :snake:
 ---
 
 <br><br><br>
-<h1 align="center">Conventions and Naming 🌐</h1>
+<h1 align="center">Key Principles 🔑</h1>
 
 ---
 
-# Readability First
+# Key Principles
 
-- Use **consistent** naming **conventions**
+**KISS** - *Keep It Simple, Stupid* :brain:  
 
----
-
-# Readability First
-
-- Use consistent naming conventions
-- Follow **PEP 8** (Python Enhancement Proposal 8)
-
-Some key points:
-- Indentation: 4 spaces
-- Naming conventions: `snake_case` for variables and functions, `CamelCase` for classes, `UPPERCASE` for constants
-- Underscores: Prefix private variables with an underscore `_` <br>(never use `__` because it invokes name mangling)
+Avoid overcomplicating solutions. Write code that is straightforward and easy to understand.  
 
 ---
 
-# Naming and Comments
+# Key Principles
+
+**KISS** - *Keep It Simple, Stupid* :brain:
+
+```python
+# Bad (overcomplicated)
+def greet_user(name, title="Mr.", middle_name="", suffix=""):
+    print(f"Hello, {title} {middle_name} {name} {suffix}!")
+
+greet_user("Doe", title="Dr.", middle_name="John", suffix="PhD")
+```
+
+---
+
+# Key Principles
+
+**KISS** - *Keep It Simple, Stupid* :brain:
+
+```python
+# Bad (overcomplicated)
+def greet_user(name, title="Mr.", middle_name="", suffix=""):
+    print(f"Hello, {title} {middle_name} {name} {suffix}!")
+
+greet_user("Doe", title="Dr.", middle_name="John", suffix="PhD")
+
+# Good (simple)
+def greet_user(name):
+    print(f"Hello, {name}!")
+
+greet_user("Dr. John Doe PhD")
+```
+
+---
+# Key Principles
+
+**DRY** - *Don't Repeat Yourself* :repeat:
+
+Avoid duplicating code. Instead, create reusable functions or classes to encapsulate common logic.
+
+---
+
+# Key Principles
+
+**DRY** - *Don't Repeat Yourself* :repeat:
+
+```python
+# Bad (repeated logic)
+numbers1 = [1, 2, 3, 4, 5]
+average1 = sum(numbers1) / len(numbers1)
+
+numbers2 = [6, 7, 8, 9, 10]
+average2 = sum(numbers2) / len(numbers2)
+```
+
+---
+# Key Principles
+
+**DRY** - *Don't Repeat Yourself* :repeat:
+
+```python
+# Bad (repeated logic)
+numbers1 = [1, 2, 3, 4, 5]
+average1 = sum(numbers1) / len(numbers1)
+
+numbers2 = [6, 7, 8, 9, 10]
+average2 = sum(numbers2) / len(numbers2)
+
+# Good (reusable function)
+def calculate_average(numbers):
+    return sum(numbers) / len(numbers)
+
+average1 = calculate_average([1, 2, 3, 4, 5])
+average2 = calculate_average([6, 7, 8, 9, 10])
+```
+
+---
+
+# Key Principles
+
+**YAGNI** - *You Aren't Gonna Need It* :no_entry:
+
+Only implement features that are necessary for the current requirements.
+
+---
+
+# Key Principles
+
+**YAGNI** - *You Aren't Gonna Need It* :no_entry:
+
+```python
+# Bad (adding unnecessary functionality)
+def search_item(items, query, case_sensitive=False, exact_match=False):
+    if case_sensitive:
+        result = [item for item in items if query in item]
+    else:
+        result = [item for item in items if query.lower() in item.lower()]
+
+    if exact_match:
+        result = [item for item in result if item == query]
+
+    return result
+
+search_item(["apple", "banana", "cherry"], "apple")
+```
+
+---
+
+# Key Principles
+
+**YAGNI** - *You Aren't Gonna Need It* :no_entry:
+
+```python
+# Bad (adding unnecessary functionality)
+def search_item(items, query, case_sensitive=False, exact_match=False):
+    if case_sensitive:
+        result = [item for item in items if query in item]
+    else:
+        result = [item for item in items if query.lower() in item.lower()]
+    
+    if exact_match:
+        result = [item for item in result if item == query]
+    
+    return result
+
+# Good (simpler function)
+def search_item(items, query):
+    return [item for item in items if query.lower() in item.lower()]
+
+search_item(["apple", "banana", "cherry"], "apple")
+```
+
+---
+
+<br><br><br>
+<h1 align="center">Code Smells 👃</h1>
+
+---
+
+# Naming 
 
 ❌ Smell: Lots of comments
 <br>
@@ -123,7 +262,7 @@ def calc(x, y):
 
 ---
 
-# Naming and Comments
+# Naming 
 
 ❌ Smell: Lots of comments
 ✅ Fix: Use meaningful names
@@ -139,7 +278,7 @@ def calc(x, y):
 PI = 3.14159
 
 def calculate_volume_of_cylinder(radius, height):
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 ```
 
 ---
@@ -154,7 +293,7 @@ def calculate_volume_of_cylinder(radius, height):
 PI = 3.14159
 
 def calculate_volume_of_cylinder(radius, height):
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 ```
 
 ---
@@ -169,28 +308,93 @@ def calculate_volume_of_cylinder(radius, height):
 PI = 3.14159
 
 def calculate_volume_of_cylinder(radius, height):
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 
 # Even better (with type hints)
-PI = 3.14159
+PI: float = 3.14159
 
 def calculate_volume_of_cylinder(radius: float, height: float) -> float:
-    return PI * radius * radius * height
+    return PI * (radius ** 2) * height
 ```
 
 ---
 
-<br><br><br>
-<h1 align="center">Code Structure 📐</h1>
+# Imprecise Types
+
+❌ Smell: Exesive use of string
+<br>
+
+```python
+# Bad (using strings for IDs and status)
+class Order:
+    def __init__(self, user_id: str, order_id: str, status: str):
+        self.user_id = user_id
+        self.order_id = order_id
+        self.status = status
+
+order = Order("user123", "order456", "pending")
+```
+
+---
+
+# Imprecise Types
+
+❌ Smell: Exesive use of string
+✅ Fix: Use Enum
+
+```python
+from enum import Enum
+
+class OrderStatus(Enum):
+    PENDING = "pending"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered"
+
+class Order:
+    def __init__(self, user_id: str, order_id: str, status: OrderStatus):
+        self.user_id = user_id
+        self.order_id = order_id
+        self.status = status
+
+order = Order("user123", "order456", OrderStatus.PENDING)
+```
+
+---
+
+# Imprecise Types
+
+❌ Smell: Exesive use of string
+✅ Fix: Use Enum and Custom Types
+
+```python
+from enum import Enum
+from typing import NewType
+
+class OrderStatus(Enum):
+    PENDING = "pending"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered"
+
+UserId = NewType("UserId", str)
+OrderId = NewType("OrderId", str)
+
+class Order:
+    def __init__(self, user_id: str, order_id: str, status: OrderStatus):
+        self.user_id = user_id
+        self.order_id = order_id
+        self.status = status
+
+order = Order(UserId("user123"), OrderId("order456"), OrderStatus.PENDING)
+```
 
 ---
 <style scoped>
 pre {
-  font-size: 60%;
+  font-size: 45%;
 }
 </style>
 
-# Return early 
+# Early Return
 
 ❌ Smell: Deep nesting
 <br>
@@ -203,16 +407,22 @@ def process_order(order):
             if order.payment_successful():
                 order.complete()
                 return "Success"
+            else:
+                return "Payment Failed"
+        else:
+            return "Out of Stock"
+    else:
+        return "Invalid Order"
 ```
 
 ---
 <style scoped>
 pre {
-  font-size: 60%;
+  font-size: 45%;
 }
 </style>
 
-# Return early 
+# Early Return
 
 ❌ Smell: Deep nesting
 ✅ Fix: Use guard clauses
@@ -225,6 +435,12 @@ def process_order(order):
             if order.payment_successful():
                 order.complete()
                 return "Success"
+            else:
+                return "Payment Failed"
+        else:
+            return "Out of Stock"
+    else:
+        return "Invalid Order"
 
 # Good (early return)
 def process_order(order):
@@ -240,11 +456,6 @@ def process_order(order):
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -261,11 +472,6 @@ def get_user_data(user_id) -> dict | None:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -282,17 +488,12 @@ def get_user_data(user_id) -> dict | None:
 
 user_data = get_user_data(123)
 if user_data:
-    age = user_data['age']
+    age = user_data.get('age')
 else:
     age = 0
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -307,15 +508,10 @@ def get_user_data(user_id) -> dict | None:
         return None
     return user.get_data_dict()
 
-age = get_user_data(123).get('age', 0)
+age = get_user_data(123).get('age', default=0)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -330,15 +526,10 @@ def get_user_data(user_id) -> dict | None:
         return None
     return user.get_data_dict()
 
-age = get_user_data(123).get('age', 0)  # Error: 'NoneType' object has no attribute 'get'
+age = get_user_data(123).get('age', default=0)  # Error: 'NoneType' object has no attribute 'get'
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -360,86 +551,70 @@ def get_user_data(user_id) -> dict:
         return {}
     return user.get_data_dict()
 
-age = get_user_data(123).get('age', 0)
+age = get_user_data(123).get('age', default=0)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 75%;
-}
-</style>
 
-# Functions Should Do One Thing Well
+# Single Responsiblity
 
-❌ Smell: *and*-functions
+❌ Smell: *or*-functions
 <br>
 
 ```python
 # Bad (does too much)
-def fetch_and_parse_data(url):
-    # Fetch logic
-    ...
-    # Parse logic
-    ...
+def encode_or_decode(message, key, do_encode):
+    if do_encode:
+        # Encoding logic
+        ...
+    else:
+        # Decoding logic
+        ...
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 75%;
-}
-</style>
 
-# Functions Should Do One Thing Well
+# Single Responsiblity
 
-❌ Smell: *and*-functions
+❌ Smell: *or*-functions
 ✅ Fix: Separate concerns
 
 ```python
 # Bad (does too much)
-def fetch_and_parse_data(url):
-    # Fetch logic
-    ...
-    # Parse logic
-    ...
+def encode_or_decode(message, key, do_encode):
+    if do_encode:
+        # Encoding logic
+        ...
+    else:
+        # Decoding logic
+        ...
 
 # Good (separate concerns)
-def fetch_data(url):
-    # Fetch logic
+def encode(message, key):
+    # Encoding logic
     ...
 
-def parse_data(data):
-    # Parse logic
+def decode(message, key):
+    # Decoding logic
     ...
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 80%;
-}
-</style>
 
-# Function Arguments: Less is More
+# Function Arguments
 
 ❌ Smell: Too many arguments (> 3)
 <br>
 
 ```python
 # Bad (too many arguments)
-def create_user(name, age, email, address):
+def save_user(name, age, email, address):
     ...
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 80%;
-}
-</style>
 
-# Function Arguments: Less is More
+# Function Arguments
 
 ❌ Smell: Too many arguments (> 3)
 ✅ Fix: Use a data structure
@@ -462,11 +637,41 @@ def save_user(user: User):
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 75%;
-}
-</style>
+
+# Methods
+
+❌ Smell: Unnecessary self
+<br>
+
+```python
+# Bad (self is not needed)
+class Calculator:
+    def add(self, a, b):
+        return a + b
+```
+
+---
+
+# Methods
+
+❌ Smell: Unnecessary self
+✅ Fix: Use static methods
+
+```python
+# Bad (self is not needed)
+class Calculator:
+    def add(self, a, b):
+        return a + b
+
+# Good (use static methods)
+class Calculator:
+    @staticmethod
+    def add(a, b):
+        return a + b
+```
+
+---
+
 # Abstract Details
 
 ❌ Smell: Exposing internals
@@ -481,11 +686,6 @@ df.loc[df['age'] > 65, 'age_group'] = 'senior'
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 75%;
-}
-</style>
 
 # Abstract Details
 
@@ -511,11 +711,6 @@ df['age_group'] = df['age'].apply(categorize_age)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Defend Against Mutability
 
@@ -534,11 +729,6 @@ class ShoppingCard:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Defend Against Mutability
 
@@ -576,10 +766,10 @@ class ShoppingCard:
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
-print(add_item(1))
-print(add_item(2))
+add_item(1)
+add_item(2)
 ```
 
 ---
@@ -593,10 +783,10 @@ print(add_item(2))
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
-print(add_item(1))  # [1]
-print(add_item(2))
+add_item(1)  # [1]
+add_item(2)
 ```
 
 ---
@@ -610,10 +800,10 @@ print(add_item(2))
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
-print(add_item(1))  # [1]
-print(add_item(2))  # [1, 2] - Unexpected!
+add_item(1)  # [1]
+add_item(2)  # [1, 2] - Unexpected!
 ```
 
 ---
@@ -627,13 +817,13 @@ print(add_item(2))  # [1, 2] - Unexpected!
 # Bad
 def add_item(item, collection=[]):
     collection.append(item)
-    return collection
+    print(collection)
 
 # Good
 def add_item(item, collection=None):
     collection = collection or []
     collection.append(item)
-    return collection
+    print(collection)
 ```
 
 ---
@@ -691,11 +881,6 @@ message = f"Hello, {name}. You are {age} years old."
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 95%;
-}
-</style>
 
 # Dataclasses
 
@@ -711,11 +896,6 @@ class Rectangle:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 95%;
-}
-</style>
 
 # Dataclasses
 
@@ -819,7 +999,6 @@ class Rectangle:
 
 # Linter
 
-Linters
 - Identify potential issues and code smells
 - Enforce coding standards and best practices
 
@@ -830,33 +1009,21 @@ Examples:
 
 ---
 
-# Linter: flake8
-
-`flake8` checks code against PEP 8 style guide and other coding standards.
-
-- Syntax errors
-- Style guide violatoion
-- Logical erros (e.g. unused variables)
-- Code complexity
-
----
-
 # Formatter
 
-Formatters
 - Automatically format code according to a predefined style guide
 - Improve readability and maintainability
 
 Examples:
+- `autopep8`
 - `black`
 - `isort` (import sorting)
-- `autopep8`
 
 ---
 
 # Ruff
 
-**Ruff** combines linters, formatters, and other code quality checks.
+Ruff combines linters, formatters, and other code quality checks.
 
 Such as `flake8`, `black`, `isort`, ...
 
@@ -866,9 +1033,69 @@ Advantages:
 
 ---
 
+# Ruff
+
+```python
+import sys  # Unused import
+import os   # Unused import
+
+def example_function():
+  unused_variable = 42   # Unused variable
+  print("Hello World!") 
+
+def another_function( ):
+    print( "This is a test" )  # Bad formatting (unnecessary spaces)
+example_function()
+```
+
+---
+
+# Ruff
+
+```python
+import sys  # Unused import
+import os   # Unused import
+
+def example_function():
+  unused_variable = 42   # Unused variable
+  print("Hello World!") 
+
+def another_function( ):
+    print( "This is a test" )  # Bad formatting (unnecessary spaces)
+example_function()
+```
+
+```
+I001: Import block is un-sorted or un-formatted
+F401: os imported but unused
+F401: sys imported but unused
+F841: Local variable unused_variable is assigned to but never used
+W292: No newline at end of file
+```
+
+---
+
+# Ruff
+
+`> ruff check --fix`
+`> ruff format`
+
+<br>
+
+```python
+def example_function():
+    print("Hello World!") 
+
+def another_function():
+    print("This is a test")
+
+example_function()
+```
+
+---
+
 <br><br><br>
 <h1 align="center">Appendix 📚</h1>
-
 
 ---
 

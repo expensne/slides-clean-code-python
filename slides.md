@@ -8,12 +8,11 @@ lang: en
 ---
 <style>
 pre {
-  font-size: 85%;
+  font-size: 65%;
 }
 </style>
 
-# **Clean Code and Best Practices**
-in Python :snake:
+# **Clean Code in Python** :snake:
 
 <br>
 <p align="center">
@@ -206,8 +205,10 @@ def search_item(items, query, case_sensitive=False, exact_match=False):
         result = [item for item in items if query in item]
     else:
         result = [item for item in items if query.lower() in item.lower()]
+
     if exact_match:
         result = [item for item in result if item == query]
+
     return result
 
 search_item(["apple", "banana", "cherry"], "apple")
@@ -226,8 +227,10 @@ def search_item(items, query, case_sensitive=False, exact_match=False):
         result = [item for item in items if query in item]
     else:
         result = [item for item in items if query.lower() in item.lower()]
+    
     if exact_match:
         result = [item for item in result if item == query]
+    
     return result
 
 # Good (simpler function)
@@ -315,11 +318,6 @@ def calculate_volume_of_cylinder(radius: float, height: float) -> float:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 65%;
-}
-</style>
 
 # Imprecise Types
 
@@ -338,11 +336,6 @@ order = Order("user123", "order456", "pending")
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 65%;
-}
-</style>
 
 # Imprecise Types
 
@@ -352,29 +345,21 @@ pre {
 ```python
 from enum import Enum
 
-UserId = NewType("UserId", str)
-OrderId = NewType("OrderId", str)
-
 class OrderStatus(Enum):
     PENDING = "pending"
     SHIPPED = "shipped"
-    DELIVERED = "delivered
+    DELIVERED = "delivered"
 
 class Order:
-    def __init__(self, user_id: UserId, order_id: OrderId, status: OrderStatus):
+    def __init__(self, user_id: str, order_id: str, status: OrderStatus):
         self.user_id = user_id
         self.order_id = order_id
         self.status = status
 
-order = Order(UserId("user123"), OrderId("order456"), OrderStatus.PENDING)
+order = Order("user123", "order456", OrderStatus.PENDING)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 65%;
-}
-</style>
 
 # Imprecise Types
 
@@ -385,26 +370,27 @@ pre {
 from enum import Enum
 from typing import NewType
 
-class Role(Enum):
-    MANAGER  = "manager"
-    EMPLOYEE = "employee"
+class OrderStatus(Enum):
+    PENDING = "pending"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered"
 
 UserId = NewType("UserId", str)
+OrderId = NewType("OrderId", str)
 
-class User:
-    def __init__(self, user_id: UserId, name: str, role: Role):
+class Order:
+    def __init__(self, user_id: str, order_id: str, status: OrderStatus):
         self.user_id = user_id
-        self.name = name
-        self.role = role
+        self.order_id = order_id
+        self.status = status
 
-manager = User(UserId("1"), "Max", Role.MANAGER)
-employee = User(UserId("2"), "Moritz", Role.EMPLOYEE)
+order = Order(UserId("user123"), OrderId("order456"), OrderStatus.PENDING)
 ```
 
 ---
 <style scoped>
 pre {
-  font-size: 48%;
+  font-size: 45%;
 }
 </style>
 
@@ -432,7 +418,7 @@ def process_order(order):
 ---
 <style scoped>
 pre {
-  font-size: 48%;
+  font-size: 45%;
 }
 </style>
 
@@ -470,11 +456,6 @@ def process_order(order):
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -491,11 +472,6 @@ def get_user_data(user_id) -> dict | None:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -518,11 +494,6 @@ else:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -541,11 +512,6 @@ age = get_user_data(123).get('age', default=0)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -564,11 +530,6 @@ age = get_user_data(123).get('age', default=0)  # Error: 'NoneType' object has n
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Empty Objects
 
@@ -594,11 +555,6 @@ age = get_user_data(123).get('age', default=0)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 65%;
-}
-</style>
 
 # Single Responsiblity
 
@@ -617,11 +573,6 @@ def encode_or_decode(message, key, do_encode):
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 65%;
-}
-</style>
 
 # Single Responsiblity
 
@@ -649,11 +600,6 @@ def decode(message, key):
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 80%;
-}
-</style>
 
 # Function Arguments
 
@@ -667,11 +613,6 @@ def save_user(name, age, email, address):
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 80%;
-}
-</style>
 
 # Function Arguments
 
@@ -730,11 +671,7 @@ class Calculator:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 75%;
-}
-</style>
+
 # Abstract Details
 
 ❌ Smell: Exposing internals
@@ -749,11 +686,6 @@ df.loc[df['age'] > 65, 'age_group'] = 'senior'
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 75%;
-}
-</style>
 
 # Abstract Details
 
@@ -779,11 +711,6 @@ df['age_group'] = df['age'].apply(categorize_age)
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Defend Against Mutability
 
@@ -802,11 +729,6 @@ class ShoppingCard:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 68%;
-}
-</style>
 
 # Defend Against Mutability
 
@@ -959,11 +881,6 @@ message = f"Hello, {name}. You are {age} years old."
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 95%;
-}
-</style>
 
 # Dataclasses
 
@@ -979,11 +896,6 @@ class Rectangle:
 ```
 
 ---
-<style scoped>
-pre {
-  font-size: 95%;
-}
-</style>
 
 # Dataclasses
 
